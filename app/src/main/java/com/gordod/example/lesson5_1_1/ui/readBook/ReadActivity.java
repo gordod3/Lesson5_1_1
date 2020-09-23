@@ -29,10 +29,5 @@ public class ReadActivity extends AppCompatActivity {
             desc.setText(rPresenter.loadBook(idBook).getDesc());
         } else Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("olol", "da");
-    }
+    
 }
