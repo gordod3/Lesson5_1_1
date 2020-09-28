@@ -10,15 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gordod.example.lesson5_1_1.R;
 import com.gordod.example.lesson5_1_1.data.model.Book;
+import com.gordod.example.lesson5_1_1.data.model.FilmModel;
 
 import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderMain> {
     List<Book> bookList;
+    List<FilmModel> filmList;
     BookOnClick bookOnClick;
 
-    public MainAdapter(List<Book> bookList, BookOnClick bookOnClick) {
-        this.bookList = bookList;
+    public MainAdapter(List<FilmModel> filmList, BookOnClick bookOnClick) {
+        this.filmList = filmList;
         this.bookOnClick = bookOnClick;
     }
 
@@ -30,12 +32,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderMain
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderMain holder, int position) {
-        holder.text.setText(bookList.get(position).getTitle());
+        holder.text.setText(filmList.get(position).getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return bookList.size();
+        return filmList.size();
     }
 
     protected class ViewHolderMain extends RecyclerView.ViewHolder {

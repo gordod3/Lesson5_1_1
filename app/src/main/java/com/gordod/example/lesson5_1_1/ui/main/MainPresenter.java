@@ -1,6 +1,7 @@
 package com.gordod.example.lesson5_1_1.ui.main;
 
 import com.gordod.example.lesson5_1_1.data.model.Book;
+import com.gordod.example.lesson5_1_1.data.model.FilmModel;
 
 import java.util.List;
 
@@ -22,6 +23,11 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public List<Book> loadListBook() {
         return mModel.getListBook();
+    }
+
+    @Override
+    public List<FilmModel> loadFilmList() {
+        return mModel.getFilmList();
     }
 
     @Override
