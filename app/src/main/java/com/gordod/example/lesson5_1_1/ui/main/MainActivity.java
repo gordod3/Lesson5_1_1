@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.gordod.example.lesson5_1_1.App;
 import com.gordod.example.lesson5_1_1.R;
 import com.gordod.example.lesson5_1_1.Tags;
-import com.gordod.example.lesson5_1_1.data.local.PreferenceUtils;
+import com.gordod.example.lesson5_1_1.data.local.preferenceUtils.PreferenceUtils;
 import com.gordod.example.lesson5_1_1.data.model.FilmModel;
 import com.gordod.example.lesson5_1_1.data.network.GhibliService;
 import com.gordod.example.lesson5_1_1.ui.login.LoginActivity;
@@ -44,23 +44,34 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mPresenter = new MainPresenter(this);
-        recyclerView = findViewById(R.id.activity_main_recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        MainAdapter adapter = new MainAdapter(mPresenter.loadFilmList(), this);
-        recyclerView.setAdapter(adapter);
+        App.ghibliService.getFilmList(new GhibliService.GhibliFilmCallback() {
+            @Override
+            public void onSuccess(List<FilmModel> filmModelList) {
+                mPresenter.loadFilmList(filmModelList);
+                createRecyclerView(filmModelList);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e(Tags.ERROR.toString(),
+                        "ERROR: " +
+                                t.getLocalizedMessage() + "\n" +
+                                t.getMessage());
+            }
+        });
         Toast.makeText(this, "Hello " + PreferenceUtils.getNickname(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showBook(int id) {
+    public void showFilmInfo(int id) {
         Intent intent = new Intent(this, ReadActivity.class);
         intent.putExtra(APP_MAIN_ID, id);
         startActivity(intent);
     }
 
     @Override
-    public void bookOnClick(int id) {
-        mPresenter.bookOnClick(id);
+    public void filmOnClick(int id) {
+        mPresenter.filmOnClick(id);
     }
 
     @Override
@@ -74,5 +85,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         PreferenceUtils.deleteUserData();
         startActivity(new Intent(this, LoginActivity.class));
         finish();
+    }
+
+    public void createRecyclerView(List<FilmModel> filmList){
+        recyclerView = findViewById(R.id.activity_main_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        MainAdapter adapter = new MainAdapter(filmList, this, this);
+        recyclerView.setAdapter(adapter);
     }
 }

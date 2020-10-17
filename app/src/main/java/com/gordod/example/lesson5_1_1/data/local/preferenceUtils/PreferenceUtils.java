@@ -1,4 +1,4 @@
-package com.gordod.example.lesson5_1_1.data.local;
+package com.gordod.example.lesson5_1_1.data.local.preferenceUtils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

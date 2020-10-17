@@ -1,6 +1,6 @@
 package com.gordod.example.lesson5_1_1.ui.login;
 
-import com.gordod.example.lesson5_1_1.data.local.PreferenceUtils;
+import com.gordod.example.lesson5_1_1.data.local.preferenceUtils.PreferenceUtils;
 
 public class LoginPresenter implements LoginContract.LoginPresenter {
     LoginActivity lActivity;

@@ -21,17 +21,18 @@ public class GhibliService {
             GHIBLI_API_FILMS = "films/",
             GHIBLI_API_FILM_ID = "filmId",
             GHIBLI_API_BASE_URL = "https://ghibliapi.herokuapp.com/";
+    private static GhibliApi ghibliApi;
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(GHIBLI_API_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    GhibliApi service = retrofit.create(GhibliApi.class);
-
+    private static GhibliApi retrofitBuilder(){
+        return new Retrofit.Builder()
+                .baseUrl(GHIBLI_API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build().create(GhibliApi.class);
+    }
     public void getFilmList(GhibliFilmCallback callback){
+        if (ghibliApi == null) ghibliApi = retrofitBuilder();
 //        Call<FilmModel> call = service.getFilmById(id);
-        Call<List<FilmModel>> call = service.getFilmList();
+        Call<List<FilmModel>> call = ghibliApi.getFilmList();
         call.enqueue(new Callback<List<FilmModel>>() {
             @Override
             public void onResponse(Call<List<FilmModel>> call, Response<List<FilmModel>> response) {

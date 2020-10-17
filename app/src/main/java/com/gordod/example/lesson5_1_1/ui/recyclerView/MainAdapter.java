@@ -9,19 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gordod.example.lesson5_1_1.R;
-import com.gordod.example.lesson5_1_1.data.model.Book;
 import com.gordod.example.lesson5_1_1.data.model.FilmModel;
+import com.gordod.example.lesson5_1_1.ui.main.MainActivity;
 
 import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderMain> {
-    List<Book> bookList;
     List<FilmModel> filmList;
     BookOnClick bookOnClick;
+    MainActivity activity;
 
-    public MainAdapter(List<FilmModel> filmList, BookOnClick bookOnClick) {
+    public MainAdapter(List<FilmModel> filmList, BookOnClick bookOnClick, MainActivity activity) {
         this.filmList = filmList;
         this.bookOnClick = bookOnClick;
+        this.activity = activity;
     }
 
     @NonNull
@@ -48,7 +49,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderMain
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    bookOnClick.bookOnClick(getAdapterPosition());
+                    bookOnClick.filmOnClick(getAdapterPosition());
                 }
             });
         }

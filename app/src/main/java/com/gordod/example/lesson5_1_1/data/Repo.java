@@ -12,39 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Repo {
-    private static ArrayList<Book> books = new ArrayList<>();
-    public static List<FilmModel> filmModels = new ArrayList<>();
+    private static List<FilmModel> filmList = new ArrayList<>();
 
-    public static List<FilmModel> getFilmList(){
-        App.ghibliService.getFilmList(new GhibliService.GhibliFilmCallback() {
-            @Override
-            public void onSuccess(List<FilmModel> fMlList) {
-                filmModels = fMlList;
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.e(Tags.ERROR.toString(),
-                        "ERROR: " +
-                                t.getLocalizedMessage() + "\n" +
-                                t.getMessage());
-            }
-        });
-        Log.d(Tags.RESULT.toString(), filmModels.size() + "");
-        return filmModels;
+    public static void loadFilmList(List<FilmModel> filmList){
+        setFilmList(filmList);
     }
 
     public static FilmModel getFilmById(int id){
-        return filmModels.get(id);
-    }
-    public static List<Book> getBookList() {
-        for (int i = 0; i < 31; i++) {
-            books.add(new Book("book" + i, "d"));
-        }
-        return books;
+        return getFilmList().get(id);
     }
 
-    public static Book getBookById(int id) {
-        return books.get(id);
+    public static List<FilmModel> getFilmList() {
+        return filmList;
+    }
+
+    public static void setFilmList(List<FilmModel> filmList) {
+        Repo.filmList = filmList;
     }
 }
